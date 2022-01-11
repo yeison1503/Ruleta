@@ -8,14 +8,58 @@ def NEW_jugador(nombre, edad, dinero):
     conexion.commit()
     conexion.close()
 
-def consultar(nombre):
+def consultarNom(nombre):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        consulta = ("SELECT name FROM jugadores WHERE name = %s;",(nombre))
-        #nom = cursor.execute(consulta, nombre)
-        nom = cursor.fetchone()
+        
+        consulta = "SELECT id, name, age, cash FROM jugadores WHERE name = %s;"
+        vnombre = cursor.execute(consulta, nombre)
+        vnombre = cursor.fetchall()
+        
+        for vnombre in vnombre:
+            if nombre == vnombre[1]:
+                #print(vnombre[1])
+                return vnombre[1]
     conexion.close()
-    return nombre
+    
+def consultarId(id):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        
+        consulta = "SELECT id, name, age, cash FROM jugadores WHERE id = %s;"
+        vid = cursor.execute(consulta, id)
+        vid = cursor.fetchall()
+        
+        for vid in vid:
+            if id == vid[0]:
+                return vid[0]
+    conexion.close()
+
+def consultarEdad(nombre):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        
+        consulta = "SELECT id, name, age, cash FROM jugadores WHERE name = %s;"
+        vedad = cursor.execute(consulta, nombre)
+        vedad = cursor.fetchall()
+        
+        for vedad in vedad:
+            if nombre == vedad[1]:
+                return vedad[2]
+    conexion.close()
+    
+def consultarSaldo(nombre):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        
+        consulta = "SELECT id, name, age, cash FROM jugadores WHERE name = %s;"
+        vdin = cursor.execute(consulta, nombre)
+        vdin = cursor.fetchall()
+        
+        for vdin in vdin:
+            if nombre == vdin[1]:
+                return vdin[3]
+    conexion.close()    
 
 def eliminar(nombre):
     conexion = obtener_conexion()
@@ -33,15 +77,21 @@ def modificar(nombre, edad, dinero, id):
         #                (nombre, edad, dinero, id))
     conexion.commit()
     conexion.close()
-    
+
+def modificarSaldo(nombre, dinero):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        consulta = "UPDATE jugadores SET cash = %s WHERE name = %s;"
+        cursor.execute(consulta, (dinero, nombre))
+    conexion.commit()
+    conexion.close()
+
 def Listar_jugador():
     conexion = obtener_conexion()
-    jugadores = []
+    lista = []
     with conexion.cursor() as cursor:
         cursor.execute("SELECT id, name, age, cash FROM jugadores;")
-        jugadores = cursor.fetchall()
-		
-        for jugadores in jugadores:
-            print(jugadores)
+        #cursor.execute("SELECT * FROM jugadores ORDER BY name ASC")
+        lista = cursor.fetchall()
     conexion.close()
-    return jugadores
+    return lista
