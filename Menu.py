@@ -28,7 +28,6 @@ while ans:
     elif ans=="5":
         print('*' * 50)
         print("\n Gracias por usar nuestro servicio!\n")
-        print("\n               Goodbye") 
         print('*' * 50)
         ans = False
     elif ans !="1" or ans !="2" or ans !="3" or ans !="4" or ans !="5" or ans !=" ":

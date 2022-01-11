@@ -5,6 +5,8 @@ Created on Tue Jan 11 16:41:32 2022
 @author: yeiso
 """
 import funciones
+import Ruleta
+
 
 costo = 10000
 
@@ -54,7 +56,7 @@ def RULETA():
          #print("El nombre ingresado ya se encuentra en uso!.\n")
          costo_usr = funciones.consultarSaldo(usr)
          edadUsr = funciones.consultarEdad(usr)
-         print(type(costo_usr),type(edadUsr))
+         #print(type(costo_usr),type(edadUsr))
          if int(costo_usr) <= costo:
              print("{}, No puedes jugar a la RULETA, saldo insifuciente {}!\n".format(usr,costo_usr))
          elif int(edadUsr) <= 18:
@@ -62,8 +64,11 @@ def RULETA():
          else:
             print("{}, Su dinero actual es {}, se le descontaran 10000 para jugar a la RULETA\n".format(usr,costo_usr))
             costo_usr -= costo
-            #win = Ruleta.Juego_ruleta()
-            #costo_usr += win
+            print(costo_usr)
+            win = Ruleta.Juego_ruleta()
+            print(win)
+            costo_usr += int(win)
+            print(costo_usr)
             funciones.modificarSaldo(usr, costo_usr)
     else:
         print("El usuario no EXISTE!")
